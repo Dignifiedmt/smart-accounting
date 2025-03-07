@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart Business Assistance</title>
+    <link rel="stylesheet" href="account.css">
+</head>
+
+<body>
+    <!-- Header with Top Navigation -->
+    <header>
+        <div class="header-container">
+            <h1>Smart Business Assistance</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Sign Up</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Responsive Side Navigation (for desktop aside) -->
+    <aside class="side-nav">
+        <button class="close-nav">×</button>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Sign Up</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <!-- Welcome Message -->
+        <section id="welcome-message">
+            <h2></h2>
+            <p>Helping small entrepreneurs manage their finances with trust and accuracy.</p>
+        </section>
+
+
+        <!-- Main Menu -->
+        <section id="program-info" style="display: none;" class="mycont">
+            <img src="accountant.jpg" alt="accountant">
+            <div>
+
+
+                <p>Select an option to start your calculation:</p>
+                <div class="grid-container">
+                    <button class="calc-btn" data-calc="trading-account">Trading Account</button>
+                    <button class="calc-btn" data-calc="cash-book">Cash Book</button>
+                    <button class="calc-btn" data-calc="petty-cash">Petty Cash Book</button>
+                    <button class="calc-btn" data-calc="price-prediction">Price Prediction</button>
+                </div>
+            </div>
+
+        </section>
+        <!-- Trading Account Section -->
+        <section id="trading-account-section" class="calc-section" style="display: none;">
+            <h3>Trading Account</h3>
+            <p id="trading-date"></p>
+            <form id="trading-form">
+                <label for="trading-date-input">Transaction Date:</label>
+                <input type="date" id="trading-date-input" required>
+                <small>Enter the date of the trading transaction.</small>
+
+                <label for="opening-stock">Opening Stock (₦):</label>
+                <input type="number" id="opening-stock" placeholder="e.g., 50000" required>
+                <small>Value of goods available at the start.</small>
+
+                <label for="purchases">Add Purchase (₦):</label>
+                <input type="number" id="purchases" placeholder="e.g., 30000" required>
+                <small>Cost of goods bought during the period.</small>
+
+                <label for="carriage-inward">Add Carriage Inward (₦):</label>
+                <input type="number" id="carriage-inward" placeholder="e.g., 5000" required>
+                <small>Transport cost for the purchases.</small>
+
+                <label for="return-outward">Less Return Outward (₦):</label>
+                <input type="number" id="return-outward" placeholder="e.g., 2000" required>
+                <small>Value of goods returned to suppliers.</small>
+
+                <label for="closing-stock">Less Closing Stock (₦):</label>
+                <input type="number" id="closing-stock" placeholder="e.g., 40000" required>
+                <small>Value of goods remaining at period end.</small>
+
+                <label for="sales">Sales (₦):</label>
+                <input type="number" id="sales" placeholder="e.g., 100000" required>
+                <small>Total revenue from sales.</small>
+
+                <label for="return-inward">Less Return Inward (₦):</label>
+                <input type="number" id="return-inward" placeholder="e.g., 5000" required>
+                <small>Value of goods returned by customers.</small>
+
+                <button type="button" id="calculate-trading">Calculate Trading Account</button>
+            </form>
+
+            <!-- Trading Account Results (Two Tables: Debit and Credit) -->
+            <div class="trading-container">
+                <div class="trading-side">
+                    <h4>Debit Side</h4>
+                    <table id="trading-debit-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Amount (₦)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trading-debit-body"></tbody>
+                    </table>
+                </div>
+                <div class="trading-side">
+                    <h4>Credit Side</h4>
+                    <table id="trading-credit-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Amount (₦)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trading-credit-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Button to calculate Profit & L Account -->
+            <button type="button" id="calculate-pl-btn" style="display:none;">Calculate Profit &amp; Loss Account</button>
+        </section>
+
+        <!-- Profit & Loss Account Section -->
+        <section id="profit-loss-section" class="calc-section" style="display: none;">
+            <h3>Profit &amp; Loss Account</h3>
+            <p id="pl-date"></p>
+            <form id="pl-form">
+                <label for="operating-expenses">Operating Expenses (₦):</label>
+                <input type="number" id="operating-expenses" placeholder="e.g., 15000" required>
+                <small>Expenses directly related to production or sales.</small>
+
+                <label for="admin-expenses">Administrative Expenses (₦):</label>
+                <input type="number" id="admin-expenses" placeholder="e.g., 8000" required>
+                <small>General overhead and management costs.</small>
+
+                <label for="finance-costs">Finance Costs (₦):</label>
+                <input type="number" id="finance-costs" placeholder="e.g., 2000" required>
+                <small>Interest and other borrowing costs.</small>
+
+                <label for="other-income-pl">Other Income (₦):</label>
+                <input type="number" id="other-income-pl" placeholder="e.g., 3000" required>
+                <small>Income from additional sources.</small>
+
+                <button type="button" id="calculate-pl">Calculate Profit &amp; Loss</button>
+            </form>
+            <div id="pl-result"></div>
+        </section>
+
+        <!-- Cash Book Section -->
+        <section id="cash-book-section" class="calc-section" style="display: none;">
+            <h1>Cash Book Application</h1>
+
+            <!-- Transaction Input Form -->
+            <form id="transactionForm">
+                <label>
+      Date:
+      <input type="date" id="date" required>
+    </label>
+                <label>
+      Particulars:
+      <input type="text" id="particulars" placeholder="Description" required>
+    </label>
+                <div class="radio-group">
+                    <span>Type:</span>
+                    <label>
+        <input type="radio" name="type" value="debit" required> Debit
+      </label>
+                    <label>
+        <input type="radio" name="type" value="credit" required> Credit
+      </label>
+                </div>
+                <label>
+      Amount:
+      <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+    </label>
+                <button type="submit">Add Transaction</button>
+            </form>
+
+            <!-- Cash Book Table -->
+            <table id="cashBook">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Particulars</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Transaction rows will be added here dynamically -->
+                </tbody>
+                <tfoot id="summary">
+                    <!-- Summary rows will be inserted here -->
+                </tfoot>
+            </table>
+
+            <!-- Calculate Balances Button -->
+            <div style="text-align: center;">
+                <button id="calculateButton" style="background-color: #24376b;">Calculate Balances</button>
+            </div>
+
+        </section>
+
+        <!-- Petty Cash Book Section -->
+        <section id="petty-cash-section" class="calc-section" style="display: none;">
+            <h3>Petty Cash Book</h3>
+            <form id="petty-cash-form">
+                <label for="petty-initial">Initial Petty Cash Balance (₦):</label>
+                <input type="number" id="petty-initial" placeholder="Enter starting petty cash" required>
+                <div id="petty-entries">
+                    <div class="petty-row">
+                        <input type="date" class="petty-date" required>
+                        <input type="text" class="petty-desc" placeholder="Enter description" required>
+                        <input type="number" class="petty-amount" placeholder="Amount (₦)" required>
+                        <select class="petty-type" required>
+              <option value="debit">Debit</option>
+              <option value="credit">Credit</option>
+            </select>
+                        <button type="button" class="remove-petty-row">Remove</button>
+                    </div>
+                </div>
+                <button type="button" id="add-petty-row">Add Transaction</button>
+                <label for="petty-reimbursement">Reimbursement Amount (₦):</label>
+                <input type="number" id="petty-reimbursement" placeholder="Enter reimbursement amount" required>
+                <button type="button" id="calculate-petty">Calculate Petty Cash</button>
+            </form>
+            <table id="pettycash-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Particulars</th>
+                        <th>Debit (₦)</th>
+                        <th>Credit (₦)</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Balance Brought Down</td>
+                        <td id="petty-bbd">₦0.00</td>
+                        <td id="petty-bbd-credit">₦0.00</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Balance Carried Down</td>
+                        <td id="petty-bcd">₦0.00</td>
+                        <td id="petty-bcd-credit">₦0.00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <!-- Price Prediction Section -->
+        <section id="price-prediction-section" class="calc-section" style="display: none;">
+            <h3>Price Prediction</h3>
+            <form id="price-prediction-form">
+                <label for="pp-total-spent">Total Amount Spent (₦):</label>
+                <input type="number" id="pp-total-spent" placeholder="Enter total expenditure" required>
+                <label for="pp-total-quantity">Total Quantity Purchased:</label>
+                <input type="number" id="pp-total-quantity" placeholder="Enter total units purchased" required>
+                <label for="pp-expected-profit">Expected Profit Percentage (%):</label>
+                <input type="number" id="pp-expected-profit" placeholder="Enter desired profit percentage" required>
+                <label for="pp-demand-rating">Demand Rating (1-10):</label>
+                <input type="number" id="pp-demand-rating" min="1" max="10" placeholder="Enter demand rating" required>
+                <label for="pp-competitor-price">Competitor's Price per Unit (₦):</label>
+                <input type="number" id="pp-competitor-price" placeholder="Enter competitor price (if any)">
+                <p id="pp-description"></p>
+                <button type="button" id="calculate-pp">Calculate Price</button>
+            </form>
+        </section>
+
+        <!-- General Results Section -->
+        <section id="results-section" style="display: none;">
+            <h3>Calculation Results</h3>
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Debit (₦)</th>
+                        <th>Credit (₦)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button type="button" id="back-home">Back to Home</button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Smart Business Assistance. All rights reserved.</p>
+        <div class="social-links">
+            <a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                <img src="pic/fb.png" alt="Facebook">
+            </a>
+            <a href="http://www.Instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src="pic/insta.png" alt="Instagram">
+            </a>
+            <a href="http://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                <img src="pic/twitter.png" alt="Twitter">
+            </a>
+            <a href="http://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                <img src="pic/LinkedIn.png" alt="LinkedIn">
+            </a>
+        </div>
+
+    </footer>
+
+    <script src="account.js"></script>
+</body>
+
+</html>
